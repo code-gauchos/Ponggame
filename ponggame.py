@@ -2,11 +2,20 @@ from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from PongBall import PongBall
 from PongPaddle import PongPaddle
+from kivy.core.window import Window
 
 class ponggame(Widget):
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
+
+    # constructor
+    def __init__(self, **kwargs):
+        super(ponggame, self).__init__(**kwargs)
+        
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
+        
+        self._keyboard.bind(on_key_down=self._on_keyboard_down)
 
     def serve_ball(self, vel=(4, 0)):
         self.ball.center = self.center
@@ -36,3 +45,22 @@ class ponggame(Widget):
             self.player1.center_y = touch.center_y
         if touch.x > self.width - self.width / 3:
             self.player2.center_y = touch.y
+
+    def _keyboard_closed(self):
+        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+        self._keyboard = None
+
+    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        if (keycode[1] == "w"):
+            self.player1.center_y += 30
+
+        elif (keycode[1] == "s"):
+            self.player1.center_y -= 30
+
+        elif (keycode[1] == "up"):
+            self.player2.center_y += 30
+
+        elif (keycode[1] == "down"):
+            self.player2.center_y -= 30
+
+        return True
