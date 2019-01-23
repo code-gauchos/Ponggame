@@ -7,8 +7,8 @@ from kivy.core.audio import SoundLoader
 
 class PongPaddle(Widget):
     score = NumericProperty(0)
-    paddle_1_sound = SoundLoader.load("./sounds/player_1_sound.wav")
-    paddle_2_sound = SoundLoader.load("./sounds/player_2_sound.wav")
+    paddle_1_sound = SoundLoader.load("./sounds/player_1_sound_2.wav")
+    paddle_2_sound = SoundLoader.load("./sounds/player_2_sound_2.wav")
 
     def bounce_ball(self, ball, speed_factor, is_player_1):
         if self.collide_widget(ball):
