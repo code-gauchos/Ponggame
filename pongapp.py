@@ -1,6 +1,10 @@
 from kivy.app import App
-from ponggame import ponggame
+from ponggame import PongGame
 from kivy.clock import Clock
+from WelcomeScreen import WelcomeScreen
+from kivy.uix.screenmanager import ScreenManager
+from GameScreen import GameScreen
+
 
 
 
@@ -9,10 +13,15 @@ from kivy.clock import Clock
 # this was "pongapp"
 class PongApp(App):
     def build(self):
-        game = ponggame()
-        game.serve_ball()
+       
+        PongApp.pong_screen_manager = ScreenManager()
 
-        # start game loop
-        Clock.schedule_interval(game.update, 1.0 / 60.0)
+        welcome_screen = WelcomeScreen(name="welcome_screen")
+        game_screen = GameScreen(name="game_screen")
 
-        return game
+
+        self.pong_screen_manager.add_widget(welcome_screen)
+        self.pong_screen_manager.add_widget(game_screen)
+        
+        # return game
+        return self.pong_screen_manager

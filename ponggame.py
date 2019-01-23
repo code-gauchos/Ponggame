@@ -8,7 +8,7 @@ from kivy.clock import Clock
 from kivy.uix.label import Label
 
 
-class ponggame(Widget):
+class PongGame(Widget):
 
     paddle_speed = 20
 
@@ -19,7 +19,7 @@ class ponggame(Widget):
 
     # constructor
     def __init__(self, **kwargs):
-        super(ponggame, self).__init__(**kwargs)
+        super(PongGame, self).__init__(**kwargs)
 
         self.winner_label.font_size = 70
         self.winner_label.center_x = self.width/2
@@ -76,6 +76,15 @@ class ponggame(Widget):
         elif(keycode == "s"):
             if(self.player1.center_y - self.paddle_speed > 0):
                 self.player1.center_y -= self.paddle_speed
+
+    def start(self):
+        # self.player_1_name = GameScreen.player_1_name
+
+        self.serve_ball()
+
+        # start game loop
+        Clock.schedule_interval(self.update, 1.0 / 60.0)
+
 
     def serve_ball(self, vel=(4, 0)):
         self.ball.center = self.center
