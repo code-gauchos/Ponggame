@@ -78,10 +78,70 @@
 
                         text: "Settings"
 
-                        # on_press: root.show_popup()
+                        on_press: root.manager.current = "settings_screen"
 
 
 
+
+<SettingsScreen>:
+
+    player_1_name_widget: player_1_name_widget_id
+
+
+
+
+
+    BoxLayout:
+
+        orientation: "vertical"
+
+        spacing: 20
+
+
+        GridLayout:
+            
+            size_hint_y: .8
+
+            cols: 2
+
+
+
+            Label:
+
+                text: "Winning Score"
+
+                halign: "center"
+
+
+            TextInput:
+
+                id: # max_score_widget_id
+                text: "7"
+
+            Label:
+
+                text: "Player 1 Name:"
+
+                halign: "center"
+
+
+            TextInput:
+
+                id: player_1_name_widget_id
+                text: "Player 1"
+
+
+            Button:
+
+                size_hint_x: 0.5
+
+                text: "Save changes"
+
+                on_press: root.save()
+
+        
+            
+        
 
 <GameScreen>:   
 
