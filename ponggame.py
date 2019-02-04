@@ -1,5 +1,5 @@
 from kivy.uix.widget import Widget
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, NumericProperty, StringProperty
 from PongBall import PongBall
 from PongPaddle import PongPaddle
 from kivy.core.window import Window
@@ -11,6 +11,10 @@ from kivy.uix.label import Label
 class PongGame(Widget):
 
     paddle_speed = 20
+    max_score = NumericProperty(11)
+    player_1_name = StringProperty("Player 1")
+    player_2_name = StringProperty("Player 2")
+
 
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
@@ -21,13 +25,22 @@ class PongGame(Widget):
     def __init__(self, **kwargs):
         super(PongGame, self).__init__(**kwargs)
 
-        self.winner_label.font_size = 70
-        self.winner_label.center_x = self.width/2
-        self.winner_label.top = self.top - 50
-        self.winner_label.texture
-        # self.winner_label.text = "Hi, EPIC MAN"
+        self.initialize()
 
-        Clock.schedule_interval(self.increase_ball_speed, 60)
+        # self.winner_label.font_size = 70
+        # self.winner_label.center_x = self.width/2
+        # self.winner_label.top = self.top - 50
+        # self.winner_label.texture
+        # # self.winner_label.text = "Hi, EPIC MAN"
+
+        
+        
+    def initialize(self):
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
+
+        self._keyboard.bind(on_key_down=self._on_keyboard_down)
+
+        self._keyboard.bind(on_key_up=self._on_keyboard_up) 
 
         self.pressed_keys = set()
 
@@ -38,11 +51,11 @@ class PongGame(Widget):
             "down": lambda: self.move_paddle_downward("down")
 
         }
-        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
 
-        self._keyboard.bind(on_key_down=self._on_keyboard_down)
+        Clock.schedule_interval(self.increase_ball_speed, 60)
 
-        self._keyboard.bind(on_key_up=self._on_keyboard_up)
+        
+
 
     def increase_ball_speed(self, dt):
 
@@ -80,13 +93,15 @@ class PongGame(Widget):
     def start(self):
         # self.player_1_name = GameScreen.player_1_name
 
+        self.initialize()
+
         self.serve_ball()
 
         # start game loop
         Clock.schedule_interval(self.update, 1.0 / 60.0)
 
 
-    def serve_ball(self, vel=(4, 0)):
+    def serve_ball(self, vel=(6, 0)):
         self.ball.center = self.center
         self.ball.velocity = vel
 
@@ -140,7 +155,8 @@ class PongGame(Widget):
 
     def on_touch_move(self, touch):
         if touch.x < self.width / 3:
-            self.player1.center_y = touch.center_y
+            self.player1.center_y = touch.y
+        
         if touch.x > self.width - self.width / 3:
             self.player2.center_y = touch.y
 

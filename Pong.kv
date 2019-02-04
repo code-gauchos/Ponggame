@@ -86,6 +86,7 @@
 <SettingsScreen>:
 
     player_1_name_widget: player_1_name_widget_id
+    player_1_paddle_color: player_1_paddle_color_id
 
 
 
@@ -131,6 +132,18 @@
                 text: "Player 1"
 
 
+            Label:
+
+                text: "Player 1 Paddle Color:"
+
+                halign: "center"
+
+            ColorPicker:
+                id: player_1_paddle_color_id
+                size_hint: 1.0, 1.0
+                on_color: root.player_1_paddle_on_color(self.color)
+            
+            
             Button:
 
                 size_hint_x: 0.5
@@ -155,6 +168,8 @@
     ball: pong_ball
     player1: player_left
     player2: player_right
+    player1label: player_left
+    player2label: player_right
 
     canvas:
         Rectangle:
@@ -162,9 +177,20 @@
             size: 10, self.height
 
     Label:
-        font_size: 70
+        id: player1label
+        canvas:
+            Color:
+                rgba: self.color
+
+        font_size: 55
         center_x: root.width / 4
-        top: root.top - 50
+        top: root.top - 0.5
+        text: root.player_1_name
+
+    Label:
+        font_size: 65
+        center_x: root.width / 4
+        top: root.top - 55
         text: str(root.player1.score)
 
     Label:
@@ -176,9 +202,9 @@
 
 
     Label:
-        font_size: 70
+        font_size: 65
         center_x: root.width * 3 / 4
-        top: root.top - 50
+        top: root.top - 55
         text: str(root.player2.score)
 
     PongBall:
