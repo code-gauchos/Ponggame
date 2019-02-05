@@ -15,11 +15,15 @@ class SettingsScreen(Screen):
 
     player_1_paddle_color = ObjectProperty(None)
 
+    player_2_name_widget = ObjectProperty(None)
+
 
     def save(self):
 
 
         self.manager.get_screen("game_screen").player_1_name = self.player_1_name_widget.text
+
+        self.manager.get_screen("game_screen").player_2_name = self.player_1_name_widget.text
             
 
         self.manager.current = "game_screen"

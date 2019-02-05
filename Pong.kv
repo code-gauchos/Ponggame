@@ -144,6 +144,17 @@
                 on_color: root.player_1_paddle_on_color(self.color)
             
             
+            Label:
+                text: "Player 2 Name:"
+
+                halign: "center"
+
+
+            TextInput:
+
+                id: player_2_name_widget_id
+                text: "Player 2"
+            
             Button:
 
                 size_hint_x: 0.5
@@ -187,6 +198,22 @@
         top: root.top - 0.5
         text: root.player_1_name
 
+    
+    
+    Label:
+        id: player2label
+        canvas:
+            Color:
+                rgba: self.color
+        
+        font_size: 55
+        center_x: root.width / 4
+        top: root.top - 0.5
+        text: root.player_2_name
+
+
+    
+    
     Label:
         font_size: 65
         center_x: root.width / 4
@@ -215,6 +242,8 @@
         id: player_left
         x: root.x
         center_y: root.center_y
+        
+
 
     PongPaddle:
         id: player_right
