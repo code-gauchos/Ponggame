@@ -10,10 +10,14 @@
 <PongPaddle>:
     size: 25, 200
     canvas:
+        Color:
+            rgba: self.color
+        
         Rectangle:
             pos:self.pos
             size:self.size
 
+<PongColorWheel>:
 <WelcomeScreen>:
     id: welcome_screen
     AnchorLayout:
@@ -122,6 +126,9 @@
             Label:
 
                 text: "Player 1 Name:"
+                
+                
+                
 
                 halign: "center"
 
@@ -133,12 +140,30 @@
 
 
             Label:
+                text: "Player 1 Paddle Color:"
+                canvas:
+            
+
+                    
+                    Color:
+                        rgba: root.player_1_label_color
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
 
                 text: "Player 1 Paddle Color:"
+                color: 1, 1, 1, 1
+                canvas.before:
+                    Color:
+                        rgba: self.color
+
+
+                
+                
 
                 halign: "center"
 
-            ColorPicker:
+            PongColorWheel:
                 id: player_1_paddle_color_id
                 size_hint: 1.0, 1.0
                 on_color: root.player_1_paddle_on_color(self.color)
@@ -156,12 +181,16 @@
             
         
 
+
+
 <GameScreen>:   
 
     game_engine: pong_game_id
     
     PongGame:
         id: pong_game_id
+
+
 
 
 <PongGame>:
