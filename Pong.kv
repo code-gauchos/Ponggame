@@ -230,6 +230,20 @@
         top: root.top - 55
         text: str(root.player1.score)
 
+    
+    Label:
+        id: player2label
+        canvas:
+            Color:
+                rgba: self.color
+
+        font_size: 60
+        center_x: root.width * 3 / 4
+        top: root.top - 0.5
+        text: root.player_2_name
+
+    
+    
     Label:
         id: winner_label
         font_size: 70
