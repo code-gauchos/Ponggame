@@ -92,6 +92,8 @@
     player_1_name_widget: player_1_name_widget_id
     player_1_paddle_color: player_1_paddle_color_id
 
+    player_2_name_widget: player_2_name_widget_id
+
 
 
 
@@ -127,21 +129,23 @@
 
                 text: "Player 1 Name:"
                 
-                
-                
-
                 halign: "center"
 
 
             TextInput:
 
                 id: player_1_name_widget_id
-                text: "Player 1"
+                text: ""
 
 
+            
+            
+            
+            
             Label:
                 text: "Player 1 Paddle Color:"
-                canvas:
+                color: [0, 0, 0, 1]
+                canvas.before:
             
 
                     
@@ -151,16 +155,6 @@
                         pos:self.pos
                         size:self.size
 
-                text: "Player 1 Paddle Color:"
-                color: 1, 1, 1, 1
-                canvas.before:
-                    Color:
-                        rgba: self.color
-
-
-                
-                
-
                 halign: "center"
 
             PongColorWheel:
@@ -168,6 +162,20 @@
                 size_hint: 1.0, 1.0
                 on_color: root.player_1_paddle_on_color(self.color)
             
+            
+            Label:
+
+                text: "Player 2 Name:"
+
+                halign: "center" 
+            
+
+            TextInput:
+
+                id: player_2_name_widget_id
+                
+                text: ""
+
             
             Button:
 

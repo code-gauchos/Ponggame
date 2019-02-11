@@ -15,13 +15,17 @@ class SettingsScreen(Screen):
     player_1_name_widget = ObjectProperty(None)
 
     player_1_paddle_color = ObjectProperty(None)
-    player_1_label_color = ListProperty([0, 0, 0, 1])
+    player_1_label_color = ListProperty([1, 1, 1, 1])
+
+    player_2_name_widget = ObjectProperty(None)
 
 
     def save(self):
 
 
         self.manager.get_screen("game_screen").player_1_name = self.player_1_name_widget.text
+
+        self.manager.get_screen("game_screen").player_2_name = self.player_2_name_widget.text
             
         
 

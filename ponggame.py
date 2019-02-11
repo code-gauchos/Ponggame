@@ -65,18 +65,24 @@ class PongGame(Widget):
         self.ball.speed_factor += .0005
 
     def move_paddle_upward(self, keycode):
+        
+        paddle_offset = 55
+        
         if(keycode == "w"):
-            if(self.player1.center_y + self.paddle_speed < self.height):
+            if(self.player1.center_y + self.paddle_speed + paddle_offset < self.height):
                 self.player1.center_y += self.paddle_speed
 
         elif(keycode == "up"):
-            if(self.player2.center_y + self.paddle_speed < self.height):
+            if(self.player2.center_y + self.paddle_speed + paddle_offset < self.height):
                 self.player2.center_y += self.paddle_speed
 
     def _on_keyboard_up(self, keyboard, keycode):
         self.pressed_keys.remove(keycode[1])
 
     def move_paddle_downward(self, keycode):
+        
+        paddle_offset = 55
+        
         logging.info(
             "In ponggame - move_paddle_downward(), key code: " + keycode)
 
@@ -84,14 +90,15 @@ class PongGame(Widget):
             logging.info("In ponggame - move_paddle_downward(), key code: " + keycode +
                          ".  player 2 y position:" + str(self.player2.center_y - self.paddle_speed))
 
-            if(self.player2.center_y - self.paddle_speed > 0):
+            if(self.player2.center_y - paddle_offset - self.paddle_speed > 0):
                 self.player2.center_y -= self.paddle_speed
         elif(keycode == "s"):
-            if(self.player1.center_y - self.paddle_speed > 0):
+            if(self.player1.center_y - paddle_offset - self.paddle_speed > 0):
                 self.player1.center_y -= self.paddle_speed
 
     def start(self):
         # self.player_1_name = GameScreen.player_1_name
+        
 
         self.initialize()
 
