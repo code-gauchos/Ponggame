@@ -1,9 +1,12 @@
 from kivy.uix.widget import Widget
-from kivy.properties import NumericProperty, ReferenceListProperty
+from kivy.properties import NumericProperty, ReferenceListProperty, ListProperty
 from kivy.vector import Vector
 
 class PongBall(Widget):
-   
+    
+    color = ListProperty([1, 1, 1, 1])
+
+
     speed_factor = 1.1
    
     velocity_x = NumericProperty(0)

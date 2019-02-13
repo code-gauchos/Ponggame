@@ -19,6 +19,12 @@ class SettingsScreen(Screen):
 
     player_2_name_widget = ObjectProperty(None)
 
+    player_2_paddle_color = ObjectProperty(None)
+    player_2_label_color = ListProperty([1, 1, 1, 1])
+
+    pong_ball_color = ObjectProperty(None)
+    pong_ball_label_color = ListProperty([1, 1, 1, 1])
+
 
     def save(self):
 
@@ -38,5 +44,20 @@ class SettingsScreen(Screen):
         self.player_1_label_color = rgba_color
 
         self.manager.get_screen("game_screen").player_1_paddle_color = rgba_color
+
+    
+    def player_2_paddle_on_color(self, rgba_color):
+        print("In SettingsScreen - player_2_paddle_on_color(), RGBA =", str(rgba_color))
+
+        self.player_2_label_color = rgba_color
+
+        self.manager.get_screen("game_screen").player_2_paddle_color = rgba_color
+
+    def pong_ball_on_color(self, rgba_color):
+        print("In SettingsScreen - pong_ball_on_color(), RGBA = ", str(rgba_color))
+
+        self.pong_ball_label_color = rgba_color
+
+        self.manager.get_screen("game_screen").pong_ball_color = rgba_color
 
        
