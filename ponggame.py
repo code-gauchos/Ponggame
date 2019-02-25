@@ -6,14 +6,19 @@ from kivy.core.window import Window
 import logging
 from kivy.clock import Clock
 from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.popup import Popup
 
 
 class PongGame(Widget):
 
+    is_game_on = False
     paddle_speed = 20
     max_score = NumericProperty(11)
     player_1_name = StringProperty("Player 1")
     player_2_name = StringProperty("Player 2")
+    esc_popup = Popup()
 
 
     ball = ObjectProperty(None)
@@ -36,6 +41,8 @@ class PongGame(Widget):
         
         
     def initialize(self):
+        self.is_game_on = True
+        
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
 
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
@@ -51,6 +58,8 @@ class PongGame(Widget):
             "down": lambda: self.move_paddle_downward("down")
 
         }
+
+        self.set_popup()
 
         Clock.schedule_interval(self.increase_ball_speed, 60)
 
@@ -77,8 +86,19 @@ class PongGame(Widget):
                 self.player2.center_y += self.paddle_speed
 
     def _on_keyboard_up(self, keyboard, keycode):
-        self.pressed_keys.remove(keycode[1])
+        if(self.pressed_keys.__contains__(keycode[1])):
+            self.pressed_keys.remove(keycode[1])
 
+    def resume_game(self):
+        self.is_game_on = True
+
+        Clock.schedule_interval(self.update, 1.0 / 60.0)
+
+    def pause_game(self):
+        self.is_game_on = False
+
+        Clock.unschedule(self.update)
+    
     def move_paddle_downward(self, keycode):
         
         paddle_offset = 55
@@ -105,7 +125,7 @@ class PongGame(Widget):
         self.serve_ball()
 
         # start game loop
-        Clock.schedule_interval(self.update, 1.0 / 60.0)
+        self.resume_game()
 
 
     def serve_ball(self, vel=(6, 0)):
@@ -176,9 +196,46 @@ class PongGame(Widget):
         # self._keyboard = None
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
-        self.pressed_keys.add(keycode[1])
+        
+        if (keycode[1] != "escape"):
+            self.pressed_keys.add(keycode[1])
+        else:
+            if(self.is_game_on is True):
+                self.pause_game()
+                self.open_popup()
+            else:
+                self.resume_game()
+                
 
         logging.info(
             "In ponggame - _on_keyboard_down(), screen height: " + str(self.height))
 
         return True
+
+    def set_popup(self):
+        welcome_button = Button(text="Home Screen", color=(1, 1, 1, 1))
+
+        settings_button = Button(text="Settings", color=(1, 1, 1, 1))
+
+        popup_box_layout = BoxLayout()
+
+        popup_box_layout.spacing = 10
+        popup_box_layout.size_hint = (.5, .25)
+
+        popup_box_layout.add_widget(welcome_button)
+        popup_box_layout.add_widget(settings_button)
+
+        self.esc_popup = Popup(
+            title="Exit", 
+            content=popup_box_layout, 
+            size_hint=(.35, .25), 
+            auto_dismiss=False
+        )
+
+
+    def open_popup(self, *args):
+        self.esc_popup.open()
+
+    def close_popup(self, *args):
+
+        self.esc_popup.dismiss()
