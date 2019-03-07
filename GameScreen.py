@@ -33,4 +33,10 @@ class GameScreen(Screen):
         # when screen comes into view, start the game
         self.game_engine.start()
 
+    def switch_to_settings_screen(self):
+        self.manager.current = "settings_screen"
+
+    def switch_to_welcome_screen_click(self):
+        self.manager.current = "welcome_screen"
+
 

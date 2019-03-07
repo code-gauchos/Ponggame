@@ -32,11 +32,7 @@ class PongGame(Widget):
 
         self.initialize()
 
-        # self.winner_label.font_size = 70
-        # self.winner_label.center_x = self.width/2
-        # self.winner_label.top = self.top - 50
-        # self.winner_label.texture
-        # # self.winner_label.text = "Hi, EPIC MAN"
+       
 
         
         
@@ -204,6 +200,7 @@ class PongGame(Widget):
                 self.pause_game()
                 self.open_popup()
             else:
+                self.close_popup()
                 self.resume_game()
                 
 
@@ -214,8 +211,10 @@ class PongGame(Widget):
 
     def set_popup(self):
         welcome_button = Button(text="Home Screen", color=(1, 1, 1, 1))
+        welcome_button.bind(on_press=self.switch_to_welcome_screen)
 
         settings_button = Button(text="Settings", color=(1, 1, 1, 1))
+        settings_button.bind(on_press=self.switch_to_settings_screen)
 
         popup_box_layout = BoxLayout()
 
@@ -233,6 +232,19 @@ class PongGame(Widget):
         )
 
 
+    def switch_to_welcome_screen(self, *args):
+        self.close_popup()
+
+        if(self.parent is not None):
+            self.parent.switch_to_welcome_screen_click()
+
+    def switch_to_settings_screen(self, *args):
+        self.close_popup()
+
+        if(self.parent is not None):
+            self.parent.switch_to_settings_screen()
+    
+    
     def open_popup(self, *args):
         self.esc_popup.open()
 
