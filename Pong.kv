@@ -36,9 +36,9 @@
         
             orientation: "vertical"
 
-            size_hint: (1, 1)
+            size_hint: (1, 0.5)
 
-            spacing: 10
+            spacing: 5
 
 
 
@@ -68,7 +68,7 @@
             
                     orientation: "vertical"
 
-                    spacing: 5
+                    spacing: 1
 
                     
                     ImageButton:
@@ -103,6 +103,8 @@
 
 <SettingsScreen>:
 
+    max_score_widget: max_score_widget_id
+    
     player_1_name_widget: player_1_name_widget_id
     player_1_paddle_color: player_1_paddle_color_id
 
@@ -143,7 +145,7 @@
 
             TextInput:
 
-                id: # max_score_widget_id
+                id: max_score_widget_id
                 text: "7"
 
             Label:

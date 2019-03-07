@@ -15,7 +15,7 @@ class PongGame(Widget):
 
     is_game_on = False
     paddle_speed = 20
-    max_score = NumericProperty(11)
+    max_score = NumericProperty(7)
     player_1_name = StringProperty("Player 1")
     player_2_name = StringProperty("Player 2")
     esc_popup = Popup()
@@ -157,20 +157,35 @@ class PongGame(Widget):
 
             self.reset_paddle_positions()
 
-            if(self.player2.score > 6):
-                self.winner_label.text = "Player 2 Wins!"
 
-            self.serve_ball(vel=(4, 0))
+            if(self.player2.score == self.max_score):
+                self.player2.score = 0
+                self.player1.score = 0
+                self.serve_ball(vel=(6, 0))
+
+            else:
+                self.serve_ball(vel=(6, 0))
+
+
+                
+
+            
 
         if self.ball.x > self.width:
             self.player1.score += 1
 
             self.reset_paddle_positions()
 
-            if(self.player1.score > 6):
-                self.winner_label.text = "Player 1 Wins!"
+            if(self.player1.score == self.max_score):
+                self.player1.score = 0
+                self.player2.score = 0
+                self.serve_ball(vel=(6, 0))
 
-            self.serve_ball(vel=(-4, 0))
+            else:
+                self.serve_ball(vel=(4, 0))
+
+
+
 
     def reset_paddle_positions(self):
         self.player1.center_y = self.center_y
