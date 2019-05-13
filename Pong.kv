@@ -2,7 +2,11 @@
 # moved this file from out of __py_cache__ how'd it get there???
 <PongBall>:
     size: 50, 50
-    canvas:
+    canvas.before:
+
+        Color:
+            rgba: self.color
+
         Ellipse:
             pos: self.pos
             size: self.size
@@ -10,10 +14,14 @@
 <PongPaddle>:
     size: 25, 200
     canvas:
+        Color:
+            rgba: self.color
+        
         Rectangle:
             pos:self.pos
             size:self.size
 
+<PongColorWheel>:
 <WelcomeScreen>:
     id: welcome_screen
     AnchorLayout:
@@ -88,6 +96,15 @@
     player_1_name_widget: player_1_name_widget_id
     player_1_paddle_color: player_1_paddle_color_id
 
+    player_2_name_widget: player_2_name_widget_id
+    player_2_paddle_color: player_2_paddle_color_id
+
+    pong_ball_color: pong_ball_color_id
+
+    title: "Settings"
+
+    size_hint: 1, 1
+
 
 
 
@@ -122,38 +139,99 @@
             Label:
 
                 text: "Player 1 Name:"
-
+                
                 halign: "center"
 
 
             TextInput:
 
                 id: player_1_name_widget_id
-                text: "Player 1"
+                text: ""
 
 
+            
+            
+            
+            
             Label:
-
                 text: "Player 1 Paddle Color:"
+                color: [0, 0, 0, 1]
+                canvas.before:
+            
+
+                    
+                    Color:
+                        rgba: root.player_1_label_color
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
 
                 halign: "center"
 
-            ColorPicker:
+            PongColorWheel:
                 id: player_1_paddle_color_id
                 size_hint: 1.0, 1.0
                 on_color: root.player_1_paddle_on_color(self.color)
             
             
             Label:
+
                 text: "Player 2 Name:"
 
-                halign: "center"
-
+                halign: "center" 
+            
 
             TextInput:
 
                 id: player_2_name_widget_id
-                text: "Player 2"
+                
+                text: ""
+
+            
+
+            Label:
+                text: "Player 2 Paddle Color:"
+                color: [0, 0, 0, 1]
+                canvas.before:
+            
+
+                    
+                    Color:
+                        rgba: root.player_2_label_color
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+
+                halign: "center"
+
+            PongColorWheel:
+                id: player_2_paddle_color_id
+                size_hint: 1.0, 1.0
+                on_color: root.player_2_paddle_on_color(self.color)
+            
+            
+            Label:
+                text: "Ball Color:"
+                color: [0, 0, 0, 1]
+                canvas.before:
+
+
+
+                    Color:
+                        rgba: root.pong_ball_label_color
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+
+                halign: "center"
+
+            PongColorWheel:
+                id: pong_ball_color_id
+                size_hint: 1.0, 1.0
+                on_color: root.pong_ball_on_color(self.color)
+            
+            
+            
             
             Button:
 
@@ -167,12 +245,16 @@
             
         
 
+
+
 <GameScreen>:   
 
     game_engine: pong_game_id
     
     PongGame:
         id: pong_game_id
+
+
 
 
 <PongGame>:
@@ -220,6 +302,20 @@
         top: root.top - 55
         text: str(root.player1.score)
 
+    
+    Label:
+        id: player2label
+        canvas:
+            Color:
+                rgba: self.color
+
+        font_size: 60
+        center_x: root.width * 3 / 4
+        top: root.top - 0.5
+        text: root.player_2_name
+
+    
+    
     Label:
         id: winner_label
         font_size: 70

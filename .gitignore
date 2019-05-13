@@ -14,4 +14,9 @@ __pycache__/SettingsScreen.cpython-36.pyc
 __pycache__/pongapp.cpython-36.pyc
 __pycache__/pongapp.cpython-36.pyc
 __pycache__/pongapp.cpython-36.pyc
+<<<<<<< HEAD
 __pycache__/SettingsScreen.cpython-37.pyc
+=======
+__pycache__/PongColorWheel.cpython-36.pyc
+__pycache__/PongBall.cpython-36.pyc
+>>>>>>> 5a7c7b01ca4ccbddef4a589110b99fe709c3868d
