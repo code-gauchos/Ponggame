@@ -1,5 +1,6 @@
 #:kivy 1.10.1
 # moved this file from out of __py_cache__ how'd it get there???
+<ImageButton>:
 <PongBall>:
     size: 50, 50
     canvas.before:
@@ -24,6 +25,8 @@
 <PongColorWheel>:
 <WelcomeScreen>:
     id: welcome_screen
+    play_image_button: play_image_button_id
+    settings_image_button: settings_image_button_id
     AnchorLayout:
 
         anchor_x: "center"
@@ -33,17 +36,17 @@
         
             orientation: "vertical"
 
-            size_hint: (0.5, 1)
+            size_hint: (1, 0.5)
 
-            spacing: 10
+            spacing: 5
 
 
 
             Label:
 
-                size_hint_y: .4
+                size_hint_y: .3
 
-                text: "Future Pong"
+                text: "FUTURE PONG"
 
                 valign: "bottom"
 
@@ -56,43 +59,52 @@
             AnchorLayout:
                 anchor_x: "center"
 
-                size_hint_y: .6
+                size_hint_y: .7
 
 
                 BoxLayout:
 
-                    size_hint: .5, .5
+                    size_hint: 1, 1
             
                     orientation: "vertical"
 
-                    spacing: 10
+                    spacing: 1
 
-                    Button:
-
-                        halign: "center"
-
-                        valign: "middle"
-
-                        text: "Start"
-
+                    
+                    ImageButton:
+                        id:play_image_button_id
+                        source: "./images/start.png"
+                        size: (150,150)
                         on_press: root.manager.current = "game_screen"
                     
-                    
-                    Button:
 
-                        halign: "center"
 
-                        valign: "middle"
-
-                        text: "Settings"
-
+                    ImageButton:
+                        id:settings_image_button_id
+                        source: "./images/settings.png"
+                        size: (150,150)
                         on_press: root.manager.current = "settings_screen"
+                    
+                    #Button:
+
+                    #    canvas:
+                    #        Rectangle:
+                   #             source: "./images/New Piskel (2).png"
+                    #            size: self.size
+                   #             pos: self.pos
+
+                   #     on_press: root.manager.current = "game_screen"
+                    
+                    
+                    
 
 
 
 
 <SettingsScreen>:
 
+    max_score_widget: max_score_widget_id
+    
     player_1_name_widget: player_1_name_widget_id
     player_1_paddle_color: player_1_paddle_color_id
 
@@ -133,7 +145,7 @@
 
             TextInput:
 
-                id: # max_score_widget_id
+                id: max_score_widget_id
                 text: "7"
 
             Label:

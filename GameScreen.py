@@ -12,6 +12,7 @@ class GameScreen(Screen):
     player_2_name = ""
     player_2_paddle_color = ListProperty(None)
     pong_ball_color = ListProperty(None)
+    max_score = 6
     
     
     game_engine=ObjectProperty(None)
@@ -28,11 +29,19 @@ class GameScreen(Screen):
         self.game_engine.player2.color = self.player_2_paddle_color
 
         self.game_engine.ball.color = self.pong_ball_color
+
+        self.game_engine.max_score = self.max_score
         
         
         
         
         # when screen comes into view, start the game
         self.game_engine.start()
+
+    def switch_to_settings_screen(self):
+        self.manager.current = "settings_screen"
+
+    def switch_to_welcome_screen_click(self):
+        self.manager.current = "welcome_screen"
 
 

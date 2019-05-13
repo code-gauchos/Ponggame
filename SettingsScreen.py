@@ -25,7 +25,7 @@ class SettingsScreen(Screen):
     pong_ball_color = ObjectProperty(None)
     pong_ball_label_color = ListProperty([1, 1, 1, 1])
 
-    player_2_name_widget = ObjectProperty(None)
+    max_score_widget = ObjectProperty(None)
 
 
     def save(self):
@@ -36,8 +36,11 @@ class SettingsScreen(Screen):
         self.manager.get_screen("game_screen").player_2_name = self.player_2_name_widget.text
             
         
-
+        self.manager.get_screen("game_screen").max_score = int(self.max_score_widget.text)
+        
         self.manager.current = "game_screen"
+
+        
 
 
     def player_1_paddle_on_color(self, rgba_color):
